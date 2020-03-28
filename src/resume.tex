@@ -1,0 +1,54 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+%%% Themes: Awesome-CV
+\documentclass[11pt, a4paper]{awesome-cv}
+
+% Configure page margins with geometry
+\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+
+%%% Override a directory location for fonts(default: 'fonts/')
+\fontdir[fonts/]
+
+%% Color for highlights
+% Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
+%                 awesome-nephritis, awesome-concrete, awesome-darknight
+\colorlet{awesome}{awesome-nephritis}
+
+%%% Configure a directory location for sections
+\newcommand*{\sectiondir}{resume/}
+
+%%% Needed to divide into several files
+\usepackage{import}
+
+
+%%% Essentials
+\name{Satyajit}{Ghana}
+\mobile{+91 7892137665} 
+\email{satyajitghana7@gmail.com}
+\linkedin{satyajitghana}
+\github{satyajitghana}
+\position{Software Engineer, Deep Learning Enthusiast}
+\quote{``If it doesn't challenge you, it won't change you."}
+
+%%% Main Contents
+\makecvfooter
+  {\today}
+  {Satyajit Ghana~~~·~~~Résumé}
+  {\thepage}
+
+\begin{document}
+\makecvheader
+
+%%% Import contents
+\import{\sectiondir}{education.tex}
+\import{\sectiondir}{skills.tex}
+\import{\sectiondir}{publications.tex}
+\import{\sectiondir}{courses.tex}
+\import{\sectiondir}{internships.tex}
+\import{\sectiondir}{projects.tex}
+\import{\sectiondir}{projekts.tex}
+\import{\sectiondir}{participations.tex}
+\import{\sectiondir}{miscellaneous.tex}
+
+\end{document}
