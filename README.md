@@ -1,6 +1,7 @@
 # Résumé
 
-> ## Note: links don't work in this png below, please see [pdf](resume_linked.pdf)
+> ## Note: links don't work in this png below, please see [pdf](resume_red.pdf)
+>
 > download the pdf and open in browser/reader
 
 ![resume](resume.png)
