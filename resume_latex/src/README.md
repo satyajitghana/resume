@@ -1,7 +1,5 @@
 # My Resume
 
-Link : 
-
 ## Build Instructions
 
 ```shell

@@ -1,5 +1,19 @@
 # Résumé
 
-![resume-1](resume-1.png)
-![resume-2](resume-2.png)
-![resume-3](resume-3.png)
+> ## Note: links don't work in this png below, please see [pdf](resume_linked.pdf)
+> download the pdf and open in browser/reader
+
+![resume](resume.png)
+
+> ## [Full LaTeX Resume](resume_latex/resume.pdf)
+
+Fonts Used:
+
+    - JetBrains Mono
+    - Montserrat
+
+NOTES:
+
+    - use Adobe Illustrator to build the resume
+    - use FontBase to manage fonts
+    - use Google Fonts
