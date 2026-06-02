@@ -75,8 +75,11 @@
 \fi
 \linespread{\LEAD}
 
-% Print the argument only in the full (multi-page) build; drop it on the one-pager.
+% Content toggles between the readable long resume and the crammed one-pager:
+%   \verbose{...}     -> appears only on the LONG resume (dropped on the one-pager)
+%   \onepageonly{...} -> appears only on the ONE-PAGER (keeps the long resume to 2 pages)
 \newcommand{\verbose}[1]{\ifonepager\else#1\fi}
+\newcommand{\onepageonly}[1]{\ifonepager#1\fi}
 
 % --- Hyperlinks (kept as real, selectable text) ------------------------------
 \hypersetup{
