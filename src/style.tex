@@ -1,0 +1,124 @@
+% ============================================================================
+%  style.tex — shared preamble for the v3 resume
+%  Engine: XeLaTeX / Tectonic.  Fonts are bundled in ./fonts (no fontconfig).
+%  Display: Space Grotesk   |   Body: Inter
+% ============================================================================
+
+% --- Background toggle ---------------------------------------------------------
+% The display wrapper draws the kestrel watermark; the ATS wrapper defines
+% \ATSMODE (before \input-ing this file) to suppress it. See bottom of file.
+
+% --- Packages ----------------------------------------------------------------
+\usepackage[a4paper,top=1.35cm,bottom=1.2cm,left=1.5cm,right=1.5cm]{geometry}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{eso-pic}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+% --- Palette -----------------------------------------------------------------
+\definecolor{ink}{HTML}{1A1F26}      % body text — near-black, slate-tinted
+\definecolor{head}{HTML}{0F141A}     % headings — darkest
+\definecolor{accent}{HTML}{B45309}   % rust/ochre — echoes the kestrel
+\definecolor{muted}{HTML}{6B7280}    % dates, secondary detail
+\definecolor{rule}{HTML}{D6D3CE}     % hairline rules
+
+% --- Fonts -------------------------------------------------------------------
+\defaultfontfeatures{Ligatures=TeX}
+
+% NOTE: RawFeature={-calt} disables Inter's contextual alternates, which otherwise
+% remap glyphs like "+" to Private-Use codepoints that break text extraction (ATS).
+\setmainfont{Inter}[
+  Path = fonts/, Extension = .ttf, RawFeature = {-calt},
+  UprightFont = *-Regular, ItalicFont = *-Italic,
+  BoldFont = *-SemiBold, BoldItalicFont = *-SemiBoldItalic ]
+
+\newfontfamily\display{SpaceGrotesk}[
+  Path = fonts/, Extension = .ttf, RawFeature = {-calt},
+  UprightFont = *-Medium, BoldFont = *-Bold ]
+\newcommand*{\displaylight}{\fontspec{SpaceGrotesk}[Path=fonts/,Extension=.ttf,RawFeature={-calt},UprightFont=*-Light]}
+
+\newcommand*{\bodylight}{\fontspec{Inter}[Path=fonts/,Extension=.ttf,RawFeature={-calt},UprightFont=*-Light]}
+\newcommand*{\bodymedium}{\fontspec{Inter}[Path=fonts/,Extension=.ttf,RawFeature={-calt},UprightFont=*-Medium]}
+
+\color{ink}
+\setlength{\parindent}{0pt}
+\linespread{1.04}
+\frenchspacing
+
+% --- Hyperlinks (kept as real, selectable text) ------------------------------
+\hypersetup{
+  colorlinks = true, urlcolor = accent, linkcolor = accent,
+  pdftitle = {Satyajit Ghana — Resume}, pdfauthor = {Satyajit Ghana} }
+
+% ============================================================================
+%  Section headings
+% ============================================================================
+\titlespacing*{\section}{0pt}{10pt}{5pt}
+\titleformat{\section}
+  {\display\fontsize{11.5}{13}\selectfont\color{head}\addfontfeatures{LetterSpace=8.0}}
+  {}{0pt}
+  {\MakeUppercase}
+  [{\color{rule}\titlerule[0.8pt]}]
+
+% ============================================================================
+%  Building blocks
+% ============================================================================
+
+% \entry{title}{right-aligned meta}{subtitle / role}{location or stack}
+\newcommand{\entry}[4]{%
+  \vspace{3pt}%
+  \noindent\begin{minipage}[t]{\textwidth}%
+    {\bodymedium\fontsize{10.8}{13}\selectfont\color{head}#1}\hfill
+    {\small\color{muted}#2}\\[1.5pt]
+    {\itshape\color{accent}#3}\hfill{\small\itshape\color{muted}#4}%
+  \end{minipage}\par\vspace{2.5pt}}
+
+% Tight, accent-marked bullet list for achievements
+\newlist{points}{itemize}{1}
+\setlist[points]{
+  leftmargin = 1.2em, itemsep = 1.6pt, topsep = 2pt, parsep = 0pt,
+  label = {\color{accent}\footnotesize\textbullet}}   % real glyph: extracts for ATS
+
+% Tech-stack line at the foot of an entry
+\newcommand{\tools}[1]{\vspace{1.5pt}\par{\footnotesize\color{muted}%
+  {\bodymedium\color{head}Stack\,\,}\textbar\,\,#1}\par}
+
+% Skills row:  \skillrow{Category}{items}
+\newcommand{\skillrow}[2]{%
+  \noindent{\small{\bodymedium\color{head}#1}\,\,{\color{muted}\textbar}\,\, #2}\par\vspace{2.6pt}}
+
+% Inline separator for the contact line
+\newcommand{\sep}{\hspace{3pt}{\color{rule}\textbullet}\hspace{3pt}}
+
+% ============================================================================
+%  Header
+% ============================================================================
+\newcommand{\makeheader}[8]{% name, tagline, location, email, phone, site, github, linkedin
+  {\display\fontsize{30}{32}\selectfont\color{head}\addfontfeatures{LetterSpace=1.0}#1}\par
+  \vspace{3pt}
+  {\bodylight\fontsize{11}{14}\selectfont\color{accent}\addfontfeatures{LetterSpace=2.0}#2}%
+  \hfill{\small\color{muted}#3}\par
+  \vspace{6pt}
+  {\fontsize{8.6}{11}\selectfont\color{ink}%
+    \href{mailto:#4}{#4}\sep
+    #5\sep
+    \href{https://#6}{#6}\sep
+    \href{https://#7}{#7}\sep
+    \href{https://#8}{#8}}\par
+  \vspace{5pt}
+  {\color{accent}\rule{\linewidth}{1.2pt}}\par
+  \vspace{2pt}}
+
+% ============================================================================
+%  Kestrel watermark — placed behind every page on the display build only.
+%  Real text always renders on top; the ATS build omits this entirely.
+% ============================================================================
+\ifdefined\ATSMODE\else
+  \AddToShipoutPictureBG{%
+    \put(\LenToUnit{1.04\paperwidth},\LenToUnit{0pt}){%
+      \makebox(0,0)[rb]{\includegraphics[height=0.82\paperheight]{assets/kestrel-dither.png}}}}
+\fi

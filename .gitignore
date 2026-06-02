@@ -1,0 +1,10 @@
+# LaTeX build artifacts (keep the PDFs, drop the rest)
+build/*.aux
+build/*.log
+build/*.out
+build/*.synctex.gz
+
+# Python / uv
+scripts/.venv/
+__pycache__/
+*.pyc
