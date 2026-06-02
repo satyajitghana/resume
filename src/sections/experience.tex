@@ -11,19 +11,23 @@
 \entry{MLOps Instructor}{Feb 2022 -- Present}{The School of AI, Bangalore}{}
 \begin{points}
   \item Designed and taught the EMLOV2 and EMLOV3 production-MLOps courses end to end.
+  \ifonepager
+  \item Covered containerized ML, Kubernetes/EKS model serving, MLOps pipelines, and LLM fine-tuning (PEFT/LoRA, vLLM, GGML \& llama.cpp, LlamaIndex \& LangChain).
+  \else
   \item Curriculum spanned Docker \& Compose, PyTorch Lightning, DVC, experiment tracking, HPO, Gradio, FastAPI + Redis serving, TorchServe, in-browser models, Kubernetes/EKS, ISTIO, KServe, Kubeflow Pipelines, canary deployments, Prometheus \& Grafana, PEFT/LoRA, vLLM, Stable Diffusion/SDXL, LLM fine-tuning, GGML \& llama.cpp, and LlamaIndex \& LangChain.
+  \fi
 \end{points}
 \tools{PyTorch, HuggingFace, Docker, AWS (EC2/S3/ECR/EKS/ECS/EFS), Kubernetes, TorchServe, GGML}
 
 \entry{Deep Learning Software Engineer}{Apr 2022 -- May 2023}{Inkers Technology Pvt Ltd, Bangalore}{}
 \begin{points}
   \item Optimized the point-cloud cleaning and meshing algorithm to produce meshes accurate to within 1\,cm.
-  \item Built a construction-defect identification and tracking module on 3D textured meshes by projecting segmentation into 3D and clustering.
   \item Designed and trained a custom transformer for 3D mesh part segmentation, deriving construction material quantities.
   \item Reduced mesh sizes from 1.2\,GB to 120\,MB via texture optimization, compression, and Blender decimation, enabling in-browser rendering.
-  \item Migrated the Observance web app from Bootstrap to TailwindCSS + PrimeReact and built a task-management module with roles and authorization.
-  \item Synchronized LiDAR, camera, and IMU streams to improve the 3D SLAM algorithm and reduce drift; cut GPU load 30\% with on-demand rendering and computed floor-plan deviations with Hausdorff distance on the frontend.
-  \item Built a one-of-a-kind thermal-camera integration with 3D scanning to produce 3D thermal maps, visualized on the frontend.
+  \verbose{\item Built a construction-defect identification and tracking module on 3D textured meshes by projecting segmentation into 3D and clustering.}
+  \verbose{\item Migrated the Observance web app from Bootstrap to TailwindCSS + PrimeReact and built a task-management module with roles and authorization.}
+  \verbose{\item Synchronized LiDAR, camera, and IMU streams to improve the 3D SLAM algorithm and reduce drift; cut GPU load 30\% with on-demand rendering and computed floor-plan deviations with Hausdorff distance on the frontend.}
+  \verbose{\item Built a one-of-a-kind thermal-camera integration with 3D scanning to produce 3D thermal maps, visualized on the frontend.}
 \end{points}
 \tools{PCL, ROS, Open3D, Blender, PyTorch, TailwindCSS, React, THREE.js, MeshLab, CloudCompare}
 
@@ -33,18 +37,18 @@
 \begin{points}
   \item Developed the full-stack web app for Observance.AI, an end-to-end construction-AI platform.
   \item Migrated facial-recognition onboarding to AWS Lambda, onboarding people in minutes with up to 2{,}000 parallel Lambdas.
-  \item Built a 3D LiDAR scan visualization platform with annotations, area/length/angle/volume measurement, synced renderers, and post-processing.
   \item Optimized the data pipeline on HPC instances (p3/p4, g4dn, r6i), processing 1--2\,TB/day on S3 with 128-core / 1024\,GB spot instances.
-  \item Implemented 3D reconstruction and texturing from LiDAR + RGB SLAM, automating the pipeline with Blender scripting for structural-defect identification.
-  \item Developed a camera-to-LiDAR texture optimization algorithm in PyTorch3D that reduced photometric projection error.
+  \verbose{\item Built a 3D LiDAR scan visualization platform with annotations, area/length/angle/volume measurement, synced renderers, and post-processing.}
+  \verbose{\item Implemented 3D reconstruction and texturing from LiDAR + RGB SLAM, automating the pipeline with Blender scripting for structural-defect identification.}
+  \verbose{\item Developed a camera-to-LiDAR texture optimization algorithm in PyTorch3D that reduced photometric projection error.}
 \end{points}
 \tools{React, Flutter, DevExtreme, THREE.js, Frappe, PyTorch, LiDAR, AWS (EC2/S3/ECR), Kinesis Video Streams}
 
 \entry{Visual Processing Intern}{Jun 2020 -- Jul 2021}{Inkers Technology Pvt Ltd, Bangalore}{}
 \begin{points}
-  \item Built a driver-monitoring system estimating driver state from glucose levels, pose, and eye landmarks, with a real-time Flutter app receiving Jetson Nano updates over Bluetooth.
   \item Designed a custom GStreamer plugin for DeepStream performing near-real-time stereo rectification, and deployed on edge devices (Xavier NX) via Docker at stereo 4K @ 30\,fps for detection and tracking.
   \item Optimized YOLOv4-Tiny for TensorRT for a 2x speedup and managed multi-GPU training on AWS (8x V100) with data backup and synchronization to cut costs.
-  \item Built a synthetic dataset generator robust to camera glitches, motion blur, and object scale --- expanding 100--200 source images to 80K and detecting objects as small as 10x10\,px.
+  \verbose{\item Built a driver-monitoring system estimating driver state from glucose levels, pose, and eye landmarks, with a real-time Flutter app receiving Jetson Nano updates over Bluetooth.}
+  \verbose{\item Built a synthetic dataset generator robust to camera glitches, motion blur, and object scale --- expanding 100--200 source images to 80K and detecting objects as small as 10x10\,px.}
 \end{points}
 \tools{DeepStream, GStreamer, TensorRT, OpenCV, Docker, Flutter, AWS, PyTorch}

@@ -1,8 +1,5 @@
-# LaTeX build artifacts (keep the PDFs, drop the rest)
-build/*.aux
-build/*.log
-build/*.out
-build/*.synctex.gz
+# LaTeX build artifacts — the deliverable PDFs live in the repo root (satyajit-*.pdf)
+build/
 
 # Python / uv
 scripts/.venv/

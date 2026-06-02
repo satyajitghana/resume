@@ -4,9 +4,12 @@
 %  Display: Space Grotesk   |   Body: Inter
 % ============================================================================
 
-% --- Background toggle ---------------------------------------------------------
-% The display wrapper draws the kestrel watermark; the ATS wrapper defines
-% \ATSMODE (before \input-ing this file) to suppress it. See bottom of file.
+% --- Build toggles -------------------------------------------------------------
+%  Wrappers define these (before \input-ing this file) to switch modes:
+%    \ATSMODE   -> suppress the kestrel watermark (clean ATS build)
+%    \ONEPAGER  -> compact sizing + drop \verbose{} content to fit one page
+\newif\ifonepager
+\ifdefined\ONEPAGER\onepagertrue\fi
 
 % --- Packages ----------------------------------------------------------------
 \usepackage[a4paper,top=1.35cm,bottom=1.2cm,left=1.5cm,right=1.5cm]{geometry}
@@ -46,8 +49,31 @@
 
 \color{ink}
 \setlength{\parindent}{0pt}
-\linespread{1.04}
 \frenchspacing
+
+% --- Sizing parameters (defaults = 2-page build) -----------------------------
+\def\NAMESIZE{30}   \def\TAGSIZE{11}   \def\CONTACTSIZE{8.6}
+\def\SECSIZE{11.5}  \def\ENTRYSIZE{10.8}
+\def\SECABOVE{10pt} \def\SECBELOW{5pt}
+\def\ENTRYSKIP{3pt} \def\AFTERENTRY{2.5pt}
+\def\ITEMSEP{1.6pt} \def\TOPSEP{2pt}
+\def\ROWSKIP{2.6pt} \def\LEAD{1.04}
+
+% --- One-page build: compact everything, then drop \verbose{} content --------
+\ifonepager
+  \geometry{top=1.0cm,bottom=0.9cm,left=1.35cm,right=1.35cm}
+  \def\NAMESIZE{23}  \def\TAGSIZE{9.5} \def\CONTACTSIZE{7.8}
+  \def\SECSIZE{9.8}  \def\ENTRYSIZE{9.7}
+  \def\SECABOVE{5pt} \def\SECBELOW{2.5pt}
+  \def\ENTRYSKIP{2pt}\def\AFTERENTRY{1.5pt}
+  \def\ITEMSEP{1pt}  \def\TOPSEP{1.5pt}
+  \def\ROWSKIP{1.8pt}\def\LEAD{1.0}
+  \renewcommand{\normalsize}{\fontsize{9}{10.6}\selectfont}\normalsize
+\fi
+\linespread{\LEAD}
+
+% Print the argument only in the full (multi-page) build; drop it on the one-pager.
+\newcommand{\verbose}[1]{\ifonepager\else#1\fi}
 
 % --- Hyperlinks (kept as real, selectable text) ------------------------------
 \hypersetup{
@@ -57,9 +83,9 @@
 % ============================================================================
 %  Section headings
 % ============================================================================
-\titlespacing*{\section}{0pt}{10pt}{5pt}
+\titlespacing*{\section}{0pt}{\SECABOVE}{\SECBELOW}
 \titleformat{\section}
-  {\display\fontsize{11.5}{13}\selectfont\color{head}\addfontfeatures{LetterSpace=8.0}}
+  {\display\fontsize{\SECSIZE}{13}\selectfont\color{head}\addfontfeatures{LetterSpace=8.0}}
   {}{0pt}
   {\MakeUppercase}
   [{\color{rule}\titlerule[0.8pt]}]
@@ -70,26 +96,27 @@
 
 % \entry{title}{right-aligned meta}{subtitle / role}{location or stack}
 \newcommand{\entry}[4]{%
-  \vspace{3pt}%
+  \vspace{\ENTRYSKIP}%
   \noindent\begin{minipage}[t]{\textwidth}%
-    {\bodymedium\fontsize{10.8}{13}\selectfont\color{head}#1}\hfill
+    {\bodymedium\fontsize{\ENTRYSIZE}{13}\selectfont\color{head}#1}\hfill
     {\small\color{muted}#2}\\[1.5pt]
     {\itshape\color{accent}#3}\hfill{\small\itshape\color{muted}#4}%
-  \end{minipage}\par\vspace{2.5pt}}
+  \end{minipage}\par\vspace{\AFTERENTRY}}
 
 % Tight, accent-marked bullet list for achievements
 \newlist{points}{itemize}{1}
 \setlist[points]{
-  leftmargin = 1.2em, itemsep = 1.6pt, topsep = 2pt, parsep = 0pt,
+  leftmargin = 1.2em, itemsep = \ITEMSEP, topsep = \TOPSEP, parsep = 0pt,
   label = {\color{accent}\footnotesize\textbullet}}   % real glyph: extracts for ATS
 
-% Tech-stack line at the foot of an entry
-\newcommand{\tools}[1]{\vspace{1.5pt}\par{\footnotesize\color{muted}%
-  {\bodymedium\color{head}Stack\,\,}\textbar\,\,#1}\par}
+% Tech-stack line at the foot of an entry (dropped on the one-pager to save space)
+\newcommand{\tools}[1]{\ifonepager\else
+  \vspace{1.5pt}\par{\footnotesize\color{muted}%
+  {\bodymedium\color{head}Stack\,\,}\textbar\,\,#1}\par\fi}
 
 % Skills row:  \skillrow{Category}{items}
 \newcommand{\skillrow}[2]{%
-  \noindent{\small{\bodymedium\color{head}#1}\,\,{\color{muted}\textbar}\,\, #2}\par\vspace{2.6pt}}
+  \noindent{\small{\bodymedium\color{head}#1}\,\,{\color{muted}\textbar}\,\, #2}\par\vspace{\ROWSKIP}}
 
 % Inline separator for the contact line
 \newcommand{\sep}{\hspace{3pt}{\color{rule}\textbullet}\hspace{3pt}}
@@ -98,12 +125,12 @@
 %  Header
 % ============================================================================
 \newcommand{\makeheader}[8]{% name, tagline, location, email, phone, site, github, linkedin
-  {\display\fontsize{30}{32}\selectfont\color{head}\addfontfeatures{LetterSpace=1.0}#1}\par
+  {\display\fontsize{\NAMESIZE}{\NAMESIZE}\selectfont\color{head}\addfontfeatures{LetterSpace=1.0}#1}\par
   \vspace{3pt}
-  {\bodylight\fontsize{11}{14}\selectfont\color{accent}\addfontfeatures{LetterSpace=2.0}#2}%
+  {\bodylight\fontsize{\TAGSIZE}{14}\selectfont\color{accent}\addfontfeatures{LetterSpace=2.0}#2}%
   \hfill{\small\color{muted}#3}\par
   \vspace{6pt}
-  {\fontsize{8.6}{11}\selectfont\color{ink}%
+  {\fontsize{\CONTACTSIZE}{11}\selectfont\color{ink}%
     \href{mailto:#4}{#4}\sep
     #5\sep
     \href{https://#6}{#6}\sep

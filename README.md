@@ -1,14 +1,16 @@
 # Satyajit Ghana — Résumé
 
 A clean, ATS-friendly resume typeset in XeLaTeX, with a faint dithered **kestrel**
-watermark. Two PDFs are built from one source:
+watermark. Three PDFs are built from one source (in the repo root):
 
-- **`build/resume.pdf`** — display version with the kestrel watermark (for your site / humans).
-- **`build/resume-ats.pdf`** — identical text, **no background**. **Submit this one to ATS / job portals.**
+- **`satyajit-resume.pdf`** — display version with the kestrel watermark (for your site / humans).
+- **`satyajit-resume-ats.pdf`** — identical text, **no background**. **Submit this one to ATS / job portals.**
+- **`satyajit-resume-one-pager.pdf`** — condensed to a single page for quick sharing.
 
 <p align="center">
-  <img src="preview/resume-page1.png" width="48%" alt="Resume page 1" />
-  <img src="preview/resume-page2.png" width="48%" alt="Resume page 2" />
+  <img src="preview/resume-page1.png" width="32%" alt="Resume page 1" />
+  <img src="preview/resume-page2.png" width="32%" alt="Resume page 2" />
+  <img src="preview/resume-one-pager.png" width="32%" alt="One-page resume" />
 </p>
 
 ---
@@ -22,8 +24,9 @@ No system LaTeX needed — this uses [Tectonic](https://tectonic-typesetting.git
 # one-time: install Tectonic (single binary) if you don't have it
 curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net | sh   # -> ./tectonic
 
-make            # builds build/resume.pdf and build/resume-ats.pdf
+make            # builds all three PDFs into the repo root
 make ats        # just the ATS version
+make onepager   # just the one-page version
 make image      # regenerate the dithered kestrel watermark
 make preview    # refresh the README preview PNGs
 make check      # run the local open-source ATS checker (see below)
@@ -47,7 +50,7 @@ The resume is built for clean machine parsing, following current
 `make check` runs `scripts/ats_check.py`, a local checker assembled from the same
 open-source engines real ATS use — **pdfminer.six** + **PyMuPDF** for extraction and
 **spaCy** for NER — and prints a transparent parse + content score. Current result on
-`build/resume-ats.pdf`: **100/100**.
+`satyajit-resume-ats.pdf`: **100/100**.
 
 > Note: `pyresparser` (the popular pip parser) is abandoned and won't load under
 > spaCy 3.8 / Python 3.12, so this repo uses the underlying extraction engines directly.
@@ -58,14 +61,18 @@ open-source engines real ATS use — **pdfminer.six** + **PyMuPDF** for extracti
 resume/
 ├── README.md
 ├── Makefile
-├── build/                 # output PDFs (resume.pdf, resume-ats.pdf)
+├── satyajit-resume.pdf            # display (kestrel watermark)
+├── satyajit-resume-ats.pdf        # clean ATS version
+├── satyajit-resume-one-pager.pdf  # condensed single page
+├── build/                 # intermediate tectonic output (not the deliverables)
 ├── preview/               # PNG previews shown above
 ├── scripts/               # uv project: dither.py (watermark), ats_check.py (ATS score)
 ├── src/
-│   ├── resume.tex         # display build  (kestrel watermark)
-│   ├── resume-ats.tex     # ATS build      (defines \ATSMODE -> no watermark)
+│   ├── resume.tex         # display build   (kestrel watermark)
+│   ├── resume-ats.tex     # ATS build       (defines \ATSMODE -> no watermark)
+│   ├── resume-onepager.tex# one-page build  (defines \ONEPAGER -> compact + drop \verbose)
 │   ├── resume-body.tex    # shared header + section includes
-│   ├── style.tex          # fonts, palette, section/heading macros, watermark hook
+│   ├── style.tex          # fonts, palette, sizing params, section macros, watermark hook
 │   ├── fonts/             # Space Grotesk + Inter (bundled)
 │   ├── assets/            # kestrel-source.jpg, kestrel-dither.png, CREDITS.md
 │   └── sections/          # summary, experience, skills, education
