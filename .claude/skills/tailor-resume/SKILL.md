@@ -61,7 +61,8 @@ the tagline, build from `src/` (so bundled fonts/assets resolve), copy the named
 the application folder, then remove the temp wrappers:
 ```bash
 TAG='Senior ML Engineer \textperiodcentered\ 3D Vision \textperiodcentered\ MLOps'
-for V in "ats:\\def\\ATSMODE{}" "display:" "onepager:\\def\\ONEPAGER{}"; do
+for V in "ats:\\def\\ATSMODE{}" "display:" \
+         "onepager:\\def\\ONEPAGER{}" "onepager-ats:\\def\\ONEPAGER{}\\def\\ATSMODE{}"; do
   NAME=${V%%:*}; FLAG=${V#*:}
   cat > src/_app-$NAME.tex <<EOF
 \\documentclass[11pt]{article}
@@ -74,9 +75,10 @@ EOF
   ( cd src && tectonic _app-$NAME.tex --outdir ../build )
   rm src/_app-$NAME.tex
 done
-cp build/_app-ats.pdf      "applications/$SLUG/$SLUG-resume-ats.pdf"
-cp build/_app-display.pdf  "applications/$SLUG/$SLUG-resume.pdf"
-cp build/_app-onepager.pdf "applications/$SLUG/$SLUG-resume-one-pager.pdf"
+cp build/_app-ats.pdf          "applications/$SLUG/$SLUG-resume-ats.pdf"
+cp build/_app-display.pdf      "applications/$SLUG/$SLUG-resume.pdf"
+cp build/_app-onepager.pdf     "applications/$SLUG/$SLUG-resume-one-pager.pdf"
+cp build/_app-onepager-ats.pdf "applications/$SLUG/$SLUG-resume-one-pager-ats.pdf"
 ```
 (Use the repo's `tectonic` — it's on PATH at `~/.local/bin`.)
 
@@ -98,7 +100,8 @@ Write `applications/$SLUG/match-report.md`: JD top keywords, which are covered (
 which are genuine gaps, and any honesty caveats. Tell the user the ATS score and the gaps.
 
 ## Output (in `applications/<company-role>/`)
-- `<slug>-resume.pdf`, `<slug>-resume-ats.pdf`, `<slug>-resume-one-pager.pdf`
+- `<slug>-resume.pdf`, `<slug>-resume-ats.pdf`,
+  `<slug>-resume-one-pager.pdf`, `<slug>-resume-one-pager-ats.pdf`
 - `sections/` (the tailored source)
 - `cover-letter.md`
 - `match-report.md`

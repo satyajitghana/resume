@@ -5,7 +5,8 @@ watermark. Three PDFs are built from one source (in the repo root):
 
 - **`satyajit-resume.pdf`** — display version with the kestrel watermark (for your site / humans).
 - **`satyajit-resume-ats.pdf`** — identical text, **no background**. **Submit this one to ATS / job portals.**
-- **`satyajit-resume-one-pager.pdf`** — condensed to a single page for quick sharing.
+- **`satyajit-resume-one-pager.pdf`** — full content condensed to a single page (watermarked).
+- **`satyajit-resume-one-pager-ats.pdf`** — the one-pager with no background, for ATS.
 
 <p align="center">
   <img src="preview/resume-page1.png" width="32%" alt="Resume page 1" />
@@ -61,16 +62,18 @@ open-source engines real ATS use — **pdfminer.six** + **PyMuPDF** for extracti
 resume/
 ├── README.md
 ├── Makefile
-├── satyajit-resume.pdf            # display (kestrel watermark)
-├── satyajit-resume-ats.pdf        # clean ATS version
-├── satyajit-resume-one-pager.pdf  # condensed single page
+├── satyajit-resume.pdf                # display (kestrel watermark)
+├── satyajit-resume-ats.pdf            # clean ATS version
+├── satyajit-resume-one-pager.pdf      # condensed single page (watermarked)
+├── satyajit-resume-one-pager-ats.pdf  # condensed single page, ATS
 ├── build/                 # intermediate tectonic output (not the deliverables)
 ├── preview/               # PNG previews shown above
 ├── scripts/               # uv project: dither.py (watermark), ats_check.py (ATS score)
 ├── src/
 │   ├── resume.tex         # display build   (kestrel watermark)
 │   ├── resume-ats.tex     # ATS build       (defines \ATSMODE -> no watermark)
-│   ├── resume-onepager.tex# one-page build  (defines \ONEPAGER -> compact + drop \verbose)
+│   ├── resume-onepager.tex     # one-page build (\ONEPAGER -> compact + drop \verbose)
+│   ├── resume-onepager-ats.tex # one-page ATS build (\ONEPAGER + \ATSMODE)
 │   ├── resume-body.tex    # shared header + section includes
 │   ├── style.tex          # fonts, palette, sizing params, section macros, watermark hook
 │   ├── fonts/             # Space Grotesk + Inter (bundled)

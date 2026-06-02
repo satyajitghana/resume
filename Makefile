@@ -3,7 +3,7 @@
 #   make            build all three PDFs into the repo root
 #   make display    satyajit-resume.pdf           (kestrel watermark — for humans/portfolio)
 #   make ats        satyajit-resume-ats.pdf       (no background — submit this to ATS/portals)
-#   make onepager   satyajit-resume-one-pager.pdf (condensed, single page)
+#   make onepager   satyajit-resume-one-pager.pdf + -one-pager-ats.pdf (condensed, single page)
 #   make image      regenerate the dithered kestrel watermark (uv + scripts/dither.py)
 #   make preview    render preview PNGs into preview/ (used by the README)
 #   make check      run the local open-source ATS checker on the ATS PDF
@@ -29,6 +29,8 @@ ats:
 onepager: $(SRC)/assets/kestrel-dither.png
 	cd $(SRC) && $(TECTONIC) resume-onepager.tex --outdir ../$(OUT)
 	cp $(OUT)/resume-onepager.pdf satyajit-resume-one-pager.pdf
+	cd $(SRC) && $(TECTONIC) resume-onepager-ats.tex --outdir ../$(OUT)
+	cp $(OUT)/resume-onepager-ats.pdf satyajit-resume-one-pager-ats.pdf
 
 image:
 	cd scripts && uv run dither.py

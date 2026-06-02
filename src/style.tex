@@ -59,16 +59,19 @@
 \def\ITEMSEP{1.6pt} \def\TOPSEP{2pt}
 \def\ROWSKIP{2.6pt} \def\LEAD{1.04}
 
-% --- One-page build: compact everything, then drop \verbose{} content --------
+% --- One-page build: compact sizing to fit the full content densely on one page,
+%     dropping only \verbose{} extras (currently just the coursework line) --------
 \ifonepager
-  \geometry{top=1.0cm,bottom=0.9cm,left=1.35cm,right=1.35cm}
-  \def\NAMESIZE{23}  \def\TAGSIZE{9.5} \def\CONTACTSIZE{7.8}
-  \def\SECSIZE{9.8}  \def\ENTRYSIZE{9.7}
-  \def\SECABOVE{5pt} \def\SECBELOW{2.5pt}
-  \def\ENTRYSKIP{2pt}\def\AFTERENTRY{1.5pt}
-  \def\ITEMSEP{1pt}  \def\TOPSEP{1.5pt}
-  \def\ROWSKIP{1.8pt}\def\LEAD{1.0}
-  \renewcommand{\normalsize}{\fontsize{9}{10.6}\selectfont}\normalsize
+  \geometry{top=0.9cm,bottom=0.8cm,left=1.3cm,right=1.3cm}
+  \def\NAMESIZE{20}  \def\TAGSIZE{8.2} \def\CONTACTSIZE{7.0}
+  \def\SECSIZE{8.4}  \def\ENTRYSIZE{8.4}
+  \def\SECABOVE{3.5pt}\def\SECBELOW{1.8pt}
+  \def\ENTRYSKIP{1.4pt}\def\AFTERENTRY{0.8pt}
+  \def\ITEMSEP{0.6pt}\def\TOPSEP{0.8pt}
+  \def\ROWSKIP{1.2pt}\def\LEAD{0.99}
+  \renewcommand{\footnotesize}{\fontsize{6.9}{8.2}\selectfont}% stack lines
+  \renewcommand{\small}{\fontsize{7.2}{8.6}\selectfont}%       skills/dates
+  \renewcommand{\normalsize}{\fontsize{7.6}{9.1}\selectfont}\normalsize
 \fi
 \linespread{\LEAD}
 
@@ -109,10 +112,9 @@
   leftmargin = 1.2em, itemsep = \ITEMSEP, topsep = \TOPSEP, parsep = 0pt,
   label = {\color{accent}\footnotesize\textbullet}}   % real glyph: extracts for ATS
 
-% Tech-stack line at the foot of an entry (dropped on the one-pager to save space)
-\newcommand{\tools}[1]{\ifonepager\else
-  \vspace{1.5pt}\par{\footnotesize\color{muted}%
-  {\bodymedium\color{head}Stack\,\,}\textbar\,\,#1}\par\fi}
+% Tech-stack line at the foot of an entry
+\newcommand{\tools}[1]{\vspace{1.5pt}\par{\footnotesize\color{muted}%
+  {\bodymedium\color{head}Stack\,\,}\textbar\,\,#1}\par}
 
 % Skills row:  \skillrow{Category}{items}
 \newcommand{\skillrow}[2]{%
