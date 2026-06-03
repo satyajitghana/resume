@@ -1,0 +1,7 @@
+% One-page ATS build — compact sizing, NO watermark (submit to ATS/portals).
+% Build:  cd src && tectonic resume-onepager-ats.tex --outdir ../build
+\documentclass[11pt]{article}
+\def\ONEPAGER{}     % compact mode + drop \verbose{} extras (see style.tex)
+\def\ATSMODE{}      % suppress the kestrel watermark
+\input{style.tex}
+\input{resume-body.tex}

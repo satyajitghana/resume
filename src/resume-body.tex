@@ -1,0 +1,29 @@
+% Shared document body. Wrappers (resume.tex / resume-ats.tex) load style.tex
+% first, then this file. Content lives in sections/.
+
+% Tagline is overridable per application (the tailor-resume skill \def's it
+% in the wrapper before this file is input).
+\providecommand{\resumetagline}{Head of Engineering \textperiodcentered\ 3D Vision \textperiodcentered\ MLOps}
+
+\begin{document}
+
+\makeheader
+  {Satyajit Ghana}
+  {\resumetagline}
+  {Bengaluru, India}
+  {satyajitghana7@gmail.com}
+  {+91 78921 37665}
+  {thesatyajit.com}
+  {github.com/satyajitghana}
+  {linkedin.com/in/satyajitghana}
+
+% \secdir lets a per-application build swap in tailored sections (see the
+% tailor-resume skill). Defaults to the canonical sections/ in this folder.
+\providecommand{\secdir}{sections/}
+\input{\secdir summary.tex}
+\input{\secdir experience.tex}
+\input{\secdir projects.tex}
+\input{\secdir skills.tex}
+\input{\secdir education.tex}
+
+\end{document}

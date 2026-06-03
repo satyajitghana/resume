@@ -1,20 +1,91 @@
-# Résumé
+# Satyajit Ghana — Résumé
 
-> ## Note: links don't work in this png below, please see [pdf](resume_red.pdf)
->
-> download the pdf and open in browser/reader
+A clean, ATS-friendly resume typeset in XeLaTeX, with a faint dithered **kestrel**
+watermark. Three PDFs are built from one source (in the repo root):
 
-![resume](resume.png)
+- **`satyajit-resume.pdf`** — display version with the kestrel watermark (for your site / humans).
+- **`satyajit-resume-ats.pdf`** — identical text, **no background**. **Submit this one to ATS / job portals.**
+- **`satyajit-resume-one-pager.pdf`** — full content condensed to a single page (watermarked).
+- **`satyajit-resume-one-pager-ats.pdf`** — the one-pager with no background, for ATS.
 
-> ## [Full LaTeX Resume](resume_latex/resume.pdf)
+<p align="center">
+  <img src="preview/resume-page1.png" width="32%" alt="Resume page 1" />
+  <img src="preview/resume-page2.png" width="32%" alt="Resume page 2" />
+  <img src="preview/resume-one-pager.png" width="32%" alt="One-page resume" />
+</p>
 
-Fonts Used:
+---
 
-    - JetBrains Mono
-    - Montserrat
+## Build
 
-NOTES:
+No system LaTeX needed — this uses [Tectonic](https://tectonic-typesetting.github.io/)
+(a self-contained XeLaTeX engine) and [uv](https://docs.astral.sh/uv/) for the Python tooling.
 
-    - use Adobe Illustrator to build the resume
-    - use FontBase to manage fonts
-    - use Google Fonts
+```bash
+# one-time: install Tectonic (single binary) if you don't have it
+curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net | sh   # -> ./tectonic
+
+make            # builds all three PDFs into the repo root
+make ats        # just the ATS version
+make onepager   # just the one-page version
+make image      # regenerate the dithered kestrel watermark
+make preview    # refresh the README preview PNGs
+make check      # run the local open-source ATS checker (see below)
+```
+
+Fonts are **bundled** in `src/fonts/` (no system font install needed):
+**[Space Grotesk](https://github.com/floriankarsten/space-grotesk)** for display, and
+**[Inter](https://github.com/rsms/inter)** for body — both embedded into the PDF.
+
+## ATS
+
+The resume is built for clean machine parsing, following current
+([2024–2026](https://www.jobscan.co/blog/resume-tables-columns-ats/)) best practice:
+
+- Single column, real selectable text, standard headings (Experience / Education / Skills).
+- Contact details (incl. a location line) live in the body — never in a page header/footer.
+- Visible URLs that are also hyperlinked; `Mon YYYY` dates; round `•` bullets; ASCII-only symbols.
+- No tables/columns for layout, no icons-as-text, no images carrying text.
+- The **ATS PDF has no background image** — the watermark is display-only.
+
+`make check` runs `scripts/ats_check.py`, a local checker assembled from the same
+open-source engines real ATS use — **pdfminer.six** + **PyMuPDF** for extraction and
+**spaCy** for NER — and prints a transparent parse + content score. Current result on
+`satyajit-resume-ats.pdf`: **100/100**.
+
+> Note: `pyresparser` (the popular pip parser) is abandoned and won't load under
+> spaCy 3.8 / Python 3.12, so this repo uses the underlying extraction engines directly.
+
+## Layout
+
+```
+resume/
+├── README.md
+├── Makefile
+├── satyajit-resume.pdf                # display (kestrel watermark)
+├── satyajit-resume-ats.pdf            # clean ATS version
+├── satyajit-resume-one-pager.pdf      # condensed single page (watermarked)
+├── satyajit-resume-one-pager-ats.pdf  # condensed single page, ATS
+├── build/                 # intermediate tectonic output (not the deliverables)
+├── preview/               # PNG previews shown above
+├── scripts/               # uv project: dither.py (watermark), ats_check.py (ATS score)
+├── src/
+│   ├── resume.tex         # display build   (kestrel watermark)
+│   ├── resume-ats.tex     # ATS build       (defines \ATSMODE -> no watermark)
+│   ├── resume-onepager.tex     # one-page build (\ONEPAGER -> compact + drop \verbose)
+│   ├── resume-onepager-ats.tex # one-page ATS build (\ONEPAGER + \ATSMODE)
+│   ├── resume-body.tex    # shared header + section includes
+│   ├── style.tex          # fonts, palette, sizing params, section macros, watermark hook
+│   ├── fonts/             # Space Grotesk + Inter (bundled)
+│   ├── assets/            # kestrel-source.jpg, kestrel-dither.png, CREDITS.md
+│   └── sections/          # summary, experience, skills, education
+├── v1/                    # archived: original Adobe-design + Awesome-CV resumes
+└── v2/                    # archived: 2024 LaTeX resume (resume-v2.pdf)
+```
+
+## Image credit
+
+Kestrel photo by **Alexis Lours**, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0),
+via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Eurasian_kestrel_2024_03_11_02.jpg) —
+downscaled, grayscaled and Atkinson-dithered into a faint watermark by `scripts/dither.py`.
+See `src/assets/CREDITS.md`.

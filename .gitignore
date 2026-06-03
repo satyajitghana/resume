@@ -1,0 +1,7 @@
+# LaTeX build artifacts — the deliverable PDFs live in the repo root (satyajit-*.pdf)
+build/
+
+# Python / uv
+scripts/.venv/
+__pycache__/
+*.pyc
